@@ -5,7 +5,7 @@ Welcome! These are some of the boilerplates I've created so that they can be, ho
 There are several components/hooks that are included, namely:
 - [Flash message component](https://github.com/kapobajza/mop-boilerplates#flash-message-component) - a handy component to display a message at the top of your device
 - [Full screen loading component](https://github.com/kapobajza/mop-boilerplates#full-screen-loading-component) - a component to display a loading screen
-- `useLoading` hook - a hook that can be used when you need to use loading in your state
+- `useLoading` hook - a hook that can be used when you need to use loading in your component's state
 - `useLoadMore` hook - a hook that simplifies infinite scrolling/loading more content in your `FlatList`s
 
 ### Flash message component
@@ -100,7 +100,7 @@ export default function App() {
 And then use it inside of your components with the `useLoading` hook:
 
 ```
-import { useLoading } from '../hooks';
+import { useFullScreenLoading } from '../components/FullScreenLoading';
 
 export default function Home() {
   const { startLoading, stopLoading } = useFullScreenLoading();
@@ -126,7 +126,7 @@ You can also use the Full screen loading component via its state:
 
 
 ```
-import { LoadingState } from '../hooks';
+import { useFullScreenLoading } from '../components/FullScreenLoading';
 
 export default function Home() {
   const asyncAction = async () => {
@@ -149,3 +149,35 @@ export default function Home() {
 This can be handy in case you need to use it outside of components, like in `redux` actions for example.
 
 **Note: it is not recommended to use it this way, because it can cause unexpected behavior.**
+
+### `useLoading` hook
+
+![useLoading gif](readme-content/useloading.gif)
+
+You can use this hook when you need to use loading for a specific component (on a button click, mostly). It can be used to show the user that he has clicked a button and it's currently loading, because some async action needs to be completed in the background.
+
+Here's how it can be used:
+
+
+```
+import { useLoading } from '../hooks';
+
+export default function Home() {
+  // `useLoading` hook expects a function which returns a `Promise`, or an `async` function as the first parameter
+  // and `timeout` (can be used to avoid memory leaks) as the second parameter
+  // It returns an array with two elements: an action and a `loading` element which can be `true` or `false`
+  const [asyncAction, loading] = useLoading(async () => {
+    // at the start `loading` is equal to `true`
+    // do some async operation, like an HTTP request or similar
+    await getDataFromServer();
+    // after the operation finishes, `loading` is equal to `false`
+  });
+
+  return (
+    <View>
+      {loading ? <ActivityIndicator /> : null}
+      <Button title="Start action" onPress={asyncAction} />
+    </View>
+  );
+}
+```
