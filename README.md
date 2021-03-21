@@ -75,4 +75,4 @@ export default function Home() {
 
 This can be handy in case you need to use it outside of components, like in `redux` actions for example.
 
-**But it is not recommended to use it this way, because it can cause unexpected behavior.**
+**Note: it is not recommended to use it this way, because it can cause unexpected behavior.**
