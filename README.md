@@ -8,7 +8,9 @@ There are several components/hooks that are included, namely:
 - `useLoading` hook - a hook that can be used when you need to use loading in your state
 - `useLoadMore` hook - a hook that simplifies infinite scrolling/loading more content in your `FlatList`s
 
-#### Flash message component
+### Flash message component
+
+![Flash message gif](https://im2.ezgif.com/tmp/ezgif-2-0f324c9c3a1c.gif)
 
 This component consists of `React` context, a hook to use it anywhere you want and the component that's gonna be displayed. In order to use it in your app, first you have to include the `FlashMessageProvider` preferably in your main `App.tsx` file:
 
