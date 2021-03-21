@@ -4,7 +4,7 @@ Welcome! These are some of the boilerplates I've created so that they can be, ho
 
 There are several components/hooks that are included, namely:
 - [Flash message component](https://github.com/kapobajza/mop-boilerplates#flash-message-component) - a handy component to display a message at the top of your device
-- Full screen loading component - a component to display a loading screen
+- [Full screen loading component](https://github.com/kapobajza/mop-boilerplates#full-screen-loading-component) - a component to display a loading screen
 - `useLoading` hook - a hook that can be used when you need to use loading in your state
 - `useLoadMore` hook - a hook that simplifies infinite scrolling/loading more content in your `FlatList`s
 
@@ -12,16 +12,17 @@ There are several components/hooks that are included, namely:
 
 ![Flash message gif](https://im2.ezgif.com/tmp/ezgif-2-0f324c9c3a1c.gif)
 
-This component consists of `React` context, a hook to use it anywhere you want and the component that's gonna be displayed. In order to use it in your app, first you have to include the `FlashMessageProvider` preferably in your main `App.tsx` file:
+This component consists of `React` context, a hook to use it anywhere you want and the component that's gonna be displayed. In order to use it in your app, first you have to include the `FlashMessageProvider` preferably in your main `App.tsx`/`App.jsx` file:
 
 ```
 import { FlashMessageProvider } from './src/components/FlashMessage';
 
 export default function App() {
   return (
-    // other providers, like SafeAreaProvider or StoreProvider, etc.
-    <FlashMessageProvider>
-      // ... other children
+    {/* other providers, like SafeAreaProvider or StoreProvider, etc. */}
+    {/* You can use an optional `timeout` property to set the duration of the flash message */}
+    <FlashMessageProvider timeout={3000}>
+       {/* ... other children */}
     </FlashMessageProvider>
   );
 }
@@ -68,6 +69,76 @@ export default function Home() {
       <Button title="Show success message" onPress={() => FlashMessageState.showSuccess('Success message')} />
       <Button title="Show error message" onPress={() => FlashMessageState.showError(new Error('Error message'))} />
       <Button title="Show info message" onPress={() => FlashMessageState.showInfo('Info message')} />
+    </View>
+  );
+}
+```
+
+This can be handy in case you need to use it outside of components, like in `redux` actions for example.
+
+**Note: it is not recommended to use it this way, because it can cause unexpected behavior.**
+
+### Full screen loading component
+
+This component, like [Flash message component](https://github.com/kapobajza/mop-boilerplates#flash-message-component), can be used through hooks in your components. Like with [Flash message component](https://github.com/kapobajza/mop-boilerplates#flash-message-component), you have to include the `LoadingProvider` preferably in your main `App.tsx`/`App.jsx` file:
+
+```
+import { LoadingProvider } from './src/components/FullScreenLoading';
+
+export default function App() {
+  return (
+    {/* other providers, like SafeAreaProvider or StoreProvider, etc. */}
+    <LoadingProvider>
+      {/* ... other children */}
+    </LoadingProvider>
+  );
+}
+```
+
+And then use it inside of your components with the `useLoading` hook:
+
+```
+import { useLoading } from '../hooks';
+
+export default function Home() {
+  const { startLoading, stopLoading } = useFullScreenLoading();
+
+  const asyncAction = async () => {
+    try {
+      startLoading();
+      // Do an async action, like an HTTP request or similar
+    } finally {
+      stopLoading();
+    }
+  };
+
+  return (
+    <View>
+      <Button title="Start action" onPress={asyncAction} />
+    </View>
+  );
+}
+```
+
+You can also use the Full screen loading component via its state:
+
+
+```
+import { LoadingState } from '../hooks';
+
+export default function Home() {
+  const asyncAction = async () => {
+    try {
+      LoadingState.startLoading();
+      // Do an async action, like an HTTP request or similar
+    } finally {
+      LoadingState.stopLoading();
+    }
+  };
+
+  return (
+    <View>
+      <Button title="Start action" onPress={asyncAction} />
     </View>
   );
 }
