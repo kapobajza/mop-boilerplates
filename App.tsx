@@ -1,21 +1,52 @@
-import { StatusBar } from 'expo-status-bar';
+import 'react-native-gesture-handler';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
+import { FlashMessageProvider } from './src/components/FlashMessage';
+import { LoadingProvider } from './src/components/FullScreenLoading';
+import Home from './src/Home';
+import { AppStackParamList } from './src/types/navigation';
+import FlashMessageDemo from './src/screens/FlashMessageDemo';
+import FullScreenLoadingDemo from './src/screens/FullScreenLoadingDemo';
+import UseLoadingDemo from './src/screens/UseLoadingDemo';
+import UseLoadMoreDemo from './src/screens/UseLoadMoreDemo';
+
+const Stack = createStackNavigator<AppStackParamList>();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaProvider>
+      <NavigationContainer>
+        <FlashMessageProvider>
+          <LoadingProvider>
+            <Stack.Navigator>
+              <Stack.Screen name="Home" component={Home} />
+              <Stack.Screen
+                name="FlashMessageDemo"
+                component={FlashMessageDemo}
+                options={{ title: 'Flash message demo' }}
+              />
+              <Stack.Screen
+                name="FullScreenLoadingDemo"
+                component={FullScreenLoadingDemo}
+                options={{ title: 'Full screen loading demo' }}
+              />
+              <Stack.Screen
+                name="UseLoadingDemo"
+                component={UseLoadingDemo}
+                options={{ title: 'useLoading demo' }}
+              />
+              <Stack.Screen
+                name="UseLoadMoreDemo"
+                component={UseLoadMoreDemo}
+                options={{ title: 'useLoadMore demo' }}
+              />
+            </Stack.Navigator>
+          </LoadingProvider>
+        </FlashMessageProvider>
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
