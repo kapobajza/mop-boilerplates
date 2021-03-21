@@ -188,7 +188,7 @@ export default function Home() {
 
 The `useLoadMore` hook can be used to simplify infinite scrolling in React Native.
 
-Here's and example on how to use it:
+Here's an example on how to use it:
 
 ```
 import { useLoadMore } from '../hooks';
@@ -200,6 +200,8 @@ interface User {
 
 export default function Home() {
   // useLoadMore expects an async callback as a first parameter and a second optional limit parameter (default limit is 10 items per page)
+  // You can also set the desired generic type useLoadMore<User>, which will be used on the returned data
+
   // It returns an object with the following properties:
   // 1. onLoadMore - the function that will be called to load more data, usually used as the onEndReached callback
   // 2. data - the data combined from all of the responses
