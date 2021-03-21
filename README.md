@@ -80,6 +80,8 @@ This can be handy in case you need to use it outside of components, like in `red
 
 ### Full screen loading component
 
+![Full screen loading gif](readme-content/full-screen-loading.gif)
+
 This component, like [Flash message component](https://github.com/kapobajza/mop-boilerplates#flash-message-component), can be used through hooks in your components. Like with [Flash message component](https://github.com/kapobajza/mop-boilerplates#flash-message-component), you have to include the `LoadingProvider` preferably in your main `App.tsx`/`App.jsx` file:
 
 ```
