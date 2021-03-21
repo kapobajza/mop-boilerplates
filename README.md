@@ -3,7 +3,7 @@
 Welcome! These are some of the boilerplates I've created so that they can be, hopefully, useful to someone.
 
 There are several components/hooks that are included, namely:
-- Flash message component - a handy component to display a message at the top of your device
+- [Flash message component](https://github.com/kapobajza/mop-boilerplates#flash-message-component) - a handy component to display a message at the top of your device
 - Full screen loading component - a component to display a loading screen
 - `useLoading` hook - a hook that can be used when you need to use loading in your state
 - `useLoadMore` hook - a hook that simplifies infinite scrolling/loading more content in your `FlatList`s
