@@ -37,7 +37,7 @@ export default function Home() {
     <View>
       <Button title="Show success message" onPress={() => showSuccess('Success message')} />
       <Button title="Show error message" onPress={() => showError(new Error('Error message'))} />
-      <Button title="Show info message" onPress={() => showSuccess('Info message')} />
+      <Button title="Show info message" onPress={() => showInfo('Info message')} />
     </View>
   );
 }
@@ -56,3 +56,23 @@ const someAsyncFunction = async () => {
   }
 }
 ```
+
+Besides using the `FlashMessage` component via hooks, you can also use it via its state, like this:
+
+```
+import { FlashMessageState } from '../components/FlashMessage';
+
+export default function Home() {
+  return (
+    <View>
+      <Button title="Show success message" onPress={() => FlashMessageState.showSuccess('Success message')} />
+      <Button title="Show error message" onPress={() => FlashMessageState.showError(new Error('Error message'))} />
+      <Button title="Show info message" onPress={() => FlashMessageState.showInfo('Info message')} />
+    </View>
+  );
+}
+```
+
+This can be handy in case you need to use it outside of components, like in `redux` actions for example.
+
+**But it is not recommended to use it this way, because it can cause unexpected behavior.**
