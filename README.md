@@ -181,3 +181,51 @@ export default function Home() {
   );
 }
 ```
+
+### `useLoadMore` hook
+
+![useLoadMore gif](readme-content/useloadmore.gif)
+
+The `useLoadMore` hook can be used to simplify infinite scrolling in React Native.
+
+Here's and example on how to use it:
+
+```
+import { useLoadMore } from '../hooks';
+
+interface User {
+  id: string;
+  name: string;
+}
+
+export default function Home() {
+  // useLoadMore expects an async callback as a first parameter and a second optional limit parameter (default limit is 10 items per page)
+  // It returns an object with the following properties:
+  // 1. onLoadMore - the function that will be called to load more data, usually used as the onEndReached callback
+  // 2. data - the data combined from all of the responses
+  // 3. loading - is true whenever onLoadMore triggers, otherwise is false
+  // 4. initialLoading - is true on the initial call, when the component mounts, otherwise is false
+  // 5. clear - a function used to reset data, loading, initialLoading to its initial state
+  const { onLoadMore, data, loading, initialLoading, clear } = useLoadMore<User>(async (limit, page) => {
+    const { data } = await axios.get<User[]>(`https://url-to-get-data.com?page=${page}&limit=${limit}`);
+    
+    // It also has to return the data that was fetched from the callback
+    return data;
+  });
+  
+  const ListFooter = loading ? (
+    <ActivityIndicator size="large" style={styles.loading} color={Colors.black} />
+  ) : null;
+
+  return (
+    <View>
+      <FlatList
+        data={data}
+        onEndReached={onLoadMore}
+        onEndReachedThreshold={0.9}
+        ListFooterComponent={ListFooter}
+      />
+    </View>
+  );
+}
+```
