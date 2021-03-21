@@ -10,7 +10,7 @@ There are several components/hooks that are included, namely:
 
 ### Flash message component
 
-![Flash message gif](https://im2.ezgif.com/tmp/ezgif-2-0f324c9c3a1c.gif)
+![Flash message gif](readme-content/flash-message.gif)
 
 This component consists of `React` context, a hook to use it anywhere you want and the component that's gonna be displayed. In order to use it in your app, first you have to include the `FlashMessageProvider` preferably in your main `App.tsx`/`App.jsx` file:
 
