@@ -1,4 +1,4 @@
-# MoP React/React Native Boilerplates
+# MoP React/React Native Boilerplates/Reusable components
 
 Welcome! These are some of the boilerplates I've created so that they can be, hopefully, useful to someone.
 
